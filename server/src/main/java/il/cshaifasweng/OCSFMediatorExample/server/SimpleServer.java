@@ -7,6 +7,7 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.SubscribedClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SimpleServer extends AbstractServer {
 	private static ArrayList<SubscribedClient> SubscribersList = new ArrayList<>();
@@ -35,6 +36,7 @@ public class SimpleServer extends AbstractServer {
 				message.setMessage("update submitters IDs");
 				sendToAllClients(message);
 			}
+
 			//we got a request to add a new client as a subscriber.
 			else if (request.equals("add client")){
 				SubscribedClient connection = new SubscribedClient(client);
@@ -48,19 +50,40 @@ public class SimpleServer extends AbstractServer {
 				client.sendToClient(message);
 			}
 			else if(request.startsWith("send Submitters IDs")){
-				//add code here to send submitters IDs to client
+				message.setMessage("206722191 , 318546975");
+				client.sendToClient(message);
+
 			}
 			else if (request.startsWith("send Submitters")){
-				//add code here to send submitters names to client
+				message.setMessage("Ahmed hosh , Nina azzam");
+				client.sendToClient(message);
 			}
 			else if (request.equals("what’s the time?")) {
-				//add code here to send the time to client
+				message.setMessage(java.time.LocalTime.now().toString());
+				client.sendToClient((message));
 			}
 			else if (request.startsWith("multiply")){
 				//add code here to multiply 2 numbers received in the message and send result back to client
 				//(use substring method as shown above)
 				//message format: "multiply n*m"
-			}else{
+				Scanner scanner = new Scanner(request); // use the request variable as input
+
+				// Read the user input as a string
+				String input = scanner.nextLine();
+
+				// Parse the input to extract the two integer values
+				String[] parts = input.split(" ");
+				if (parts.length != 3 || !parts[0].equals("multiply")) {
+					System.out.println("Invalid command.");
+					return;
+				}
+				int first = Integer.parseInt(parts[1]);
+				int second = Integer.parseInt(parts[2]);
+
+				// Calculate and print the result
+				int result = first * second;
+			}
+			else{
 				//add code here to send received message to all clients.
 				//The string we received in the message is the message we will send back to all clients subscribed.
 				//Example:
