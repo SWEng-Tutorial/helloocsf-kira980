@@ -82,6 +82,9 @@ public class SimpleServer extends AbstractServer {
 
 				// Calculate and print the result
 				int result = first * second;
+				message.setMessage(result.toString());
+				client.sendToClient(message);
+
 			}
 			else{
 				//add code here to send received message to all clients.
